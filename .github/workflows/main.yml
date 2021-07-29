@@ -16,6 +16,7 @@ jobs:
   release-minor:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: chmod +x bin/release.sh && bin/release.sh --minor
   release-patch:
     runs-on: ubuntu-latest
