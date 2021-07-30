@@ -8,10 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: yarn
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: yarn test
   release-major:
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels, 'major')
