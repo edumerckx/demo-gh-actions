@@ -10,7 +10,7 @@ jobs:
       - run: yarn
   release-major:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels, 'major')
+    if: ${{ github.event.label.name == 'major' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
         run: chmod +x bin/release.sh && bin/release.sh --major
   release-minor:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels, 'minor')
+    if: ${{ github.event.label.name == 'minor' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
