@@ -1,5 +1,8 @@
 name: Componente
-on: workflow_dispatch
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch: ~
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -9,17 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: yarn test
-  release-major:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - run: chmod +x $HOME/bin/release.sh && $HOME/bin/release.sh --major
-  release-minor:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: chmod +x bin/release.sh && bin/release.sh --minor
-  release-patch:
-    runs-on: ubuntu-latest
-    steps:
-      - run: ./bin/release.sh --minor
-
+      - name: Release - Major
+        if: contains(github.event.pull_request.labels, 'major')
+        uses: actions/checkout@v2
+        run: chmod +x bin/release.sh && bin/release.sh --major
+      - name: Release - Minor
+        if: contains(github.event.pull_request.labels, 'minor')
+        uses: actions/checkout@v2
+        run: chmod +x bin/release.sh && bin/release.sh --minor
+      - name: Release - Patch
+        if: contains(github.event.pull_request.labels, 'patch')
+        uses: actions/checkout@v2
+        run: chmod +x bin/release.sh && bin/release.sh --patch
+  
