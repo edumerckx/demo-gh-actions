@@ -26,9 +26,9 @@ jobs:
         run: chmod +x bin/release.sh && bin/release.sh --minor
   release-patch:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels, 'patch')
+    if: ${{ github.event.label.name == 'patch' }}
     steps:
-      - name: Checkout
+      - name: Checkout Patch
         uses: actions/checkout@v2
       - name: Release Patch
         run: chmod +x bin/release.sh && bin/release.sh --patch
