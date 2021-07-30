@@ -1,13 +1,22 @@
 name: Componente
 on:
-  pull_request:
-    types: [labeled]
-  workflow_dispatch: ~
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Major, Minor ou Patch
+        required: true
 jobs:
   install:
     runs-on: ubuntu-latest
     steps:
       - run: yarn
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: release ${{ github.event.inputs.release }}
+        run: chmod +x bin/release.sh && bin/release.sh --${{ github.event.inputs.release }}
   release-major:
     runs-on: ubuntu-latest
     if: contains(github.event.pull_request.labels, 'major')
