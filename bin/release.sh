@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if $1 != "major" && $1 != "minor" && $1 != "patch"
+then
+  echo "Allowed values are: major, minor or patch" && 
+  exit 1
+fi
+
 git config user.name edumerckx
 git config user.email test@test
 

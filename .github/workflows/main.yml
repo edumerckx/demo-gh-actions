@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       release:
-        description: Major, Minor ou Patch
+        description: major, minor ou patch
         required: true
 jobs:
   install:
@@ -17,27 +17,4 @@ jobs:
         uses: actions/checkout@v2
       - name: release ${{ github.event.inputs.release }}
         run: chmod +x bin/release.sh && bin/release.sh --${{ github.event.inputs.release }}
-  release-major:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'major' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Release Major
-        run: chmod +x bin/release.sh && bin/release.sh --major
-  release-minor:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'minor' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Release Minor
-        run: chmod +x bin/release.sh && bin/release.sh --minor
-  release-patch:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'patch' }}
-    steps:
-      - name: Checkout Patch
-        uses: actions/checkout@v2
-      - name: Release Patch
-        run: chmod +x bin/release.sh && bin/release.sh --patch
+  
