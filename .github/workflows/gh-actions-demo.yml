@@ -1,5 +1,5 @@
 name: GH Actions Demo
-on: [push]
+on: workflow_dispatch
 jobs:
   Explore-GH-Actions:
     runs-on: ubuntu-latest
