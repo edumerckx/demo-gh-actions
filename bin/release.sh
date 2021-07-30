@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if $1 != "major" || $1 != "minor" || $1 != "patch"
+if [ $1 != "major" ] || [ $1 != "minor" ] || [ $1 != "patch" ]
 then
   echo "Allowed values are: major, minor or patch" && 
   exit 1
